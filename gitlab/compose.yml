@@ -110,3 +110,14 @@ services:
       - "22:22"
     networks:
       - web_net
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    volumes:
+      - ./volumes/runner/config/:/etc/gitlab-runner:Z
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - web_net
+      - app_net
+    labels:
+      - traefik.enable=false
